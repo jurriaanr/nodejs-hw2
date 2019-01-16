@@ -6,7 +6,7 @@
 const defaultRule = val => val.length > 0
 
 /**
- * The value
+ * The value for no value filled in
  * @type {number}
  */
 export const NO_VALUE = -100000
@@ -19,6 +19,7 @@ export const NO_VALUE = -100000
  * @returns {*}
  */
 export const getValue = (val, type = 'string', rule = defaultRule) => {
+    // check type
     if (typeof (val) === type) {
         let trimmedVal
         if (type === 'string') {
@@ -27,6 +28,7 @@ export const getValue = (val, type = 'string', rule = defaultRule) => {
             trimmedVal = val
         }
 
+        // if a validation rule was given, use it
         if (!rule || rule(trimmedVal)) {
             return trimmedVal
         }
@@ -54,6 +56,13 @@ export const mapFields = (fields, data) => fields.map((field) => {
 export const allFieldsHaveValue = (fields) => fields.every(field => !field.required || field.value !== NO_VALUE)
 
 /**
+ * Check if at least one of the fields has value
+ * @param fields
+ * @returns {boolean}
+ */
+export const someFieldsHaveValue = (fields) => fields.some(field => field.value !== NO_VALUE)
+
+/**
  * Show what required fields are missing their value
  * @param fields
  * @return {*}
@@ -64,13 +73,6 @@ export const getMissingFields = (fields) => fields.reduce((acc, field) => {
     }
     return acc
 }, [])
-
-/**
- * Check if at least one of the fields has value
- * @param fields
- * @returns {boolean}
- */
-export const someFieldsHaveValue = (fields) => fields.some(field => field.value !== NO_VALUE)
 
 /**
  * The default field type that sets some default values
@@ -88,6 +90,6 @@ export const defaultField = {
     },
 }
 
-// General validators
+// General validators, used in multiple handlers
 
 export const addressValidator  = (val) => val.street.length > 0 && val.zip.length && val.city.length

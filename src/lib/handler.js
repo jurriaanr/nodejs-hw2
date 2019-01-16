@@ -10,11 +10,13 @@ import {allFieldsHaveValue, getMissingFields, mapFields, someFieldsHaveValue} fr
 // perform authorization
 export const tokenized = (handler) => async (data, callback) => {
     try {
+        // check expire date
         const verifyTokenResult = await verifyToken(data.params.token)
         if (verifyTokenResult.valid) {
             const user = await getUserByToken(verifyTokenResult.token)
 
             if (user && user.validated) {
+                // add token and user to the request data
                 data.token = verifyTokenResult.token
                 data.user = user
                 return handler(data, callback)
@@ -28,7 +30,7 @@ export const tokenized = (handler) => async (data, callback) => {
 
 // function that gets an object from storage based on the input from the user
 export const getter = (dirName, converter = defaultPullConverter, userChecker = defaultUserChecker) => async (data, callback) => {
-    // create hash for use in storage
+    // get id from request (from url, or body or even headers)
     const id = data.params.id
 
     try {
