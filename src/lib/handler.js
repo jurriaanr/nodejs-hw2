@@ -83,7 +83,7 @@ export const poster = (dirName, fields = [], converter = defaultPushConverter) =
 
 // function that updates an object in storage based on the input from the user
 export const putter = (dirName, fields = [], converter = defaultPushConverter, userChecker = defaultUserChecker) => async (data, callback) => {
-    // create hash for use in storage
+    // get id from request
     const id = data.params.id
     if (id && storage.exists(dirName, id)) {
         try {

@@ -19,7 +19,7 @@ const pushConverter = async (fields, obj = {}, data = null) => {
     const order = defaultPushConverter(fields, obj, data)
 
     // only when creating a new user
-    if(data.isPost()){
+    if (data.isPost()) {
         order.date = Date.now()
         order.total = calculateTotal(order)
         order.paid = false
@@ -38,7 +38,7 @@ export const handlers = {
                 data.user.orders.push(result.Id)
                 try {
                     await update(userDir, data.user.id, data.user)
-                    callback(200, result)
+                    return callback(200, result)
                 } catch (e) {
                     return callback(500, {Message: 'Order could not be saved to user'})
                 }
@@ -50,10 +50,10 @@ export const handlers = {
     put: tokenized(async (data, callback) => {
         try {
             const order = await read(directory, data.params.id)
-            if(order.paid){
-                return callback(400, {Message: "Order is already paid for"})
+            if (order.paid) {
+                return callback(400, {Message: 'Order is already paid for'})
             }
-            putter(directory, fields, pushConverter)
+            putter(directory, fields, pushConverter)(data, callback)
         } catch (e) {
             return callback(500, {Message: 'Order could not be read'})
         }
