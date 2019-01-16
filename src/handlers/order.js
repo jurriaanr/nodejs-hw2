@@ -1,7 +1,7 @@
 import {defaultPushConverter, hiddenFieldConverter} from '../lib/util'
 import {getter, poster, putter, deleter, tokenized} from '../lib/handler'
 import {addressValidator, defaultField} from '../lib/forms'
-import {update} from '../lib/storage'
+import {read, update} from '../lib/storage'
 import {calculateTotal, itemsValidator} from '../lib/order'
 import {directory as userDir} from './user'
 
@@ -47,7 +47,17 @@ export const handlers = {
             }
         })
     }),
-    put: tokenized(putter(directory, fields, pushConverter)),
+    put: tokenized(async (data, callback) => {
+        try {
+            const order = await read(directory, data.params.id)
+            if(order.paid){
+                return callback(400, {Message: "Order is already paid for"})
+            }
+            putter(directory, fields, pushConverter)
+        } catch (e) {
+            return callback(500, {Message: 'Order could not be read'})
+        }
+    }),
     delete: tokenized(async (data, callback) => {
         deleter(directory)(data, async (status, result) => {
             if (status === 200) {
