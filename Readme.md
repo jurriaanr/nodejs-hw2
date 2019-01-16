@@ -105,6 +105,12 @@ Update an existing user (requires valid token)
 Delete an user by id (requires valid token)  
 **DELETE /user?id=aaa**
 
+###### Response
+
+    {
+        "Message": "Resource deleted"
+    }
+
 ## Validate
 
 Validate user by sending validation token  
@@ -113,7 +119,13 @@ Validate user by sending validation token
 ###### Request
 
     {
-        "validationKey": "d7c31894132096f3bbb7868c3f7f4ea7_55c5f29b7c42d210bcc66d3251d5715838d8e8e032a5e988addcae561ab2 "
+        "validationKey": "d7c31894132096f3bbb7868c3f7f4ea7_55c5f29b7c42d210bcc66d3251d5715838d8e8e032a5e988addcae561ab2"
+    }
+
+###### Response
+
+    {
+        "Message": "Your account is now validated, start ordering pizza's!"
     }
 
 
@@ -157,6 +169,11 @@ Extend the expire time of an existing token (requires valid token)
 Delete a token by id (requires valid token)  
 **DELETE /token?id=aaa**
 
+###### Response
+
+    {
+        "Message": "Resource deleted"
+    }
 
 ## Menu
 
@@ -288,6 +305,12 @@ Update an existing order (requires valid token)
 
 Delete an order by id (requires valid token)  
 **DELETE /order?id=aaa**
+
+###### Response
+
+    {
+        "Message": "Resource deleted"
+    }
 
 ## Payment
 
