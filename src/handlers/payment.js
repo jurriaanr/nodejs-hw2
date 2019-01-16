@@ -16,7 +16,7 @@ const orderMailBody = (order, user) => `
         return `${acc}\n${item.quantity} x ${itemName}`
     }, '')}
     ---------------------
-    For the great price of $${(order.total/100).toFixed(2)}!
+    For the great price of &euro;${(order.total/100).toFixed(2)}!
     
     We will be sending it to your place at ${order.address.street} in ${order.address.city}
     

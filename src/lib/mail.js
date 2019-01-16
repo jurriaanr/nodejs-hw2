@@ -4,6 +4,7 @@ import {stringify} from 'querystring'
 
 const apiUrl = 'https://api.mailgun.net/v3/'
 
+// default email message template
 export const message = {
     from: config.mailgun.from,
     to: '',
@@ -41,6 +42,7 @@ export const message = {
  * @returns {Promise<object>}
  */
 export const mail = (message) => new Promise((resolve, reject) => {
+    // payload for mailgun e-mail
     const payload = stringify({
         from: message.from,
         to: message.to,
@@ -49,6 +51,7 @@ export const mail = (message) => new Promise((resolve, reject) => {
         html: message.html(),
     })
 
+    // make the request to mailgun
     const req = request(`${apiUrl}${config.mailgun.apiDomain}/messages`, {
         method: 'POST',
         headers: {

@@ -15,6 +15,7 @@ const apiUrl = 'https://api.stripe.com/v1/'
  * @param paymentToken
  */
 export const charge = (order, user, paymentToken) => new Promise((resolve, reject) => {
+    // payload for stripe api
     const payload = stringify({
         amount: calculateTotal(order),
         currency: 'eur',

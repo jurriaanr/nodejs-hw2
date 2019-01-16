@@ -5,7 +5,7 @@ export const categories = ['pizza', 'pasta', 'beverage', 'dessert']
 export const menuItems = [
     {
         id: 1001,
-        category: 'pizza',
+        category: categories[0],
         name: 'Pizza Margherita  ',
         price: 745,
         ingredients: ['tomato', 'cheese'],
@@ -13,7 +13,7 @@ export const menuItems = [
     },
     {
         id: 1002,
-        category: 'pizza',
+        category: categories[0],
         name: 'Pizza Cipolla',
         price: 795,
         ingredients: ['tomato', 'cheese', 'union'],
@@ -21,7 +21,7 @@ export const menuItems = [
     },
     {
         id: 1003,
-        category: 'pizza',
+        category: categories[0],
         name: 'Pizza Pineapple',
         price: 850,
         ingredients: ['tomato', 'cheese', 'pineapple'],
@@ -29,7 +29,7 @@ export const menuItems = [
     },
     {
         id: 1004,
-        category: 'pizza',
+        category: categories[0],
         name: 'Pizza Banko',
         price: 895,
         ingredients: ['tomato', 'cheese', 'paprika', 'garlic', 'capers'],
@@ -37,7 +37,7 @@ export const menuItems = [
     },
     {
         id: 1005,
-        category: 'pizza',
+        category: categories[0],
         name: 'Pizza Napoletana',
         price: 895,
         ingredients: ['tomato', 'cheese', 'anchovies'],
@@ -45,7 +45,7 @@ export const menuItems = [
     },
     {
         id: 1007,
-        category: 'pizza',
+        category: categories[0],
         name: 'Pizza Mozarella',
         price: 895,
         ingredients: ['tomato', 'mozarella', 'pesto'],
@@ -53,7 +53,7 @@ export const menuItems = [
     },
     {
         id: 1006,
-        category: 'pizza',
+        category: categories[0],
         name: 'Pizza Choriza',
         price: 950,
         ingredients: ['tomato', 'cheese', 'chorizo', 'salami'],
@@ -61,7 +61,7 @@ export const menuItems = [
     },
     {
         id: 1008,
-        category: 'pizza',
+        category: categories[0],
         name: 'Pizza Hawaii',
         price: 990,
         ingredients: ['tomato', 'cheese', 'pineapple', 'ham'],
@@ -69,7 +69,7 @@ export const menuItems = [
     },
     {
         id: 2001,
-        category: 'pasta',
+        category: categories[1],
         name: 'Aglio e olio',
         price: 675,
         ingredients: ['oil', 'garlic', 'parsley', 'union', 'paprika'],
@@ -78,7 +78,7 @@ export const menuItems = [
     {id: 2002, category: 'pasta', name: 'Napolitana', price: '795', ingredients: ['tomato'], choices: pastaChoices},
     {
         id: 2003,
-        category: 'pasta',
+        category: categories[1],
         name: 'All \'arrabbiata',
         price: 895,
         ingredients: ['tomato', 'hot peppers'],
@@ -86,7 +86,7 @@ export const menuItems = [
     },
     {
         id: 2004,
-        category: 'pasta',
+        category: categories[1],
         name: 'Bolognese',
         price: 920,
         ingredients: ['tomato', 'minced meat'],
@@ -94,7 +94,7 @@ export const menuItems = [
     },
     {
         id: 2005,
-        category: 'pasta',
+        category: categories[1],
         name: 'Al tonno',
         price: 950,
         ingredients: ['tomato', 'tuna', 'coconut cream'],
@@ -102,21 +102,21 @@ export const menuItems = [
     },
     {
         id: 2006,
-        category: 'pasta',
+        category: categories[1],
         name: 'Carbonara',
         price: 950,
         ingredients: ['tomato', 'bacon', 'union', 'egg yolk', 'cheese', 'cream sauce'],
         choices: pastaChoices
     },
-    {id: 8001, category: 'beverage', name: 'Cola', price: 200},
-    {id: 8002, category: 'beverage', name: 'Fanta', price: 200},
-    {id: 8003, category: 'beverage', name: '7-up', price: 200},
-    {id: 8004, category: 'beverage', name: 'Beer', price: 275},
-    {id: 8005, category: 'beverage', name: 'White wine', price: 1250},
-    {id: 8006, category: 'beverage', name: 'Red wine', price: 1250},
-    {id: 9001, category: 'dessert', name: 'Tiramisu', price: 675},
-    {id: 9002, category: 'dessert', name: 'Cannoli', price: 450},
-    {id: 9003, category: 'dessert', name: 'Gelato', price: 450},
+    {id: 8001, category: categories[2], name: 'Cola', price: 200},
+    {id: 8002, category: categories[2], name: 'Fanta', price: 200},
+    {id: 8003, category: categories[2], name: '7-up', price: 200},
+    {id: 8004, category: categories[2], name: 'Beer', price: 275},
+    {id: 8005, category: categories[2], name: 'White wine', price: 1250},
+    {id: 8006, category: categories[2], name: 'Red wine', price: 1250},
+    {id: 9001, category: categories[3], name: 'Tiramisu', price: 675},
+    {id: 9002, category: categories[3], name: 'Cannoli', price: 450},
+    {id: 9003, category: categories[3], name: 'Gelato', price: 450},
 ]
 
 /**
@@ -145,7 +145,7 @@ export const itemsValidator = (val) => val.every((item) => {
 
     if (menuItem) {
         // if there was no valid choice (not set or invalid value)
-        if (menuItem.category === 'pizza' || menuItem.category === 'pasta') {
+        if (menuItem.category === categories[0] || menuItem.category === categories[1]) {
             if(!item.choice || !menuItem.choices.hasOwnProperty(item.choice)){
                 return false
             }
@@ -163,4 +163,4 @@ export const itemsValidator = (val) => val.every((item) => {
  * @param id
  * @returns {*}
  */
-export const getMenuItem = (id) => menuItems.find((menuItem) => menuItem.id === id)
+export const getMenuItem = (id) => menuItems.find(menuItem => menuItem.id === id)

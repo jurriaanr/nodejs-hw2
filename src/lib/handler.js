@@ -57,14 +57,12 @@ export const poster = (dirName, fields = [], converter = defaultPushConverter) =
     // set the value from request for each required field
     fields = mapFields(fields, data)
 
-    // console.log(data.body, fields)
-
     // if every required field has a value
     if (allFieldsHaveValue(fields)) {
         // create id for storage
         const id = createId()
 
-        // store if the object does not yet exists
+        // store if the object does not yet exist (in case user mistakes post for pull f.e.)
         if (!storage.exists(dirName, id)) {
             try {
                 // use the given converter to convert the object for storage
@@ -87,6 +85,7 @@ export const poster = (dirName, fields = [], converter = defaultPushConverter) =
 export const putter = (dirName, fields = [], converter = defaultPushConverter, userChecker = defaultUserChecker) => async (data, callback) => {
     // get id from request
     const id = data.params.id
+
     if (id && storage.exists(dirName, id)) {
         try {
             // read in the full object
