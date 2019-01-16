@@ -101,6 +101,7 @@ Update an existing user (requires valid token)
         "Message": "Resource updated",
         "Id": "1234"
     }
+
 Delete an user by id (requires valid token)  
 **DELETE /user?id=aaa**
 
