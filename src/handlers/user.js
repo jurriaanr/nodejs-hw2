@@ -4,6 +4,7 @@ import {getter, poster, putter, deleter, tokenized} from '../lib/handler'
 import {addressValidator, defaultField, NO_VALUE} from '../lib/forms'
 import {remove} from '../lib/storage'
 import {mail, message} from '../lib/mail'
+import {directory as orderDir} from './order'
 
 // the dir that will store the user data
 export const directory = 'user'
@@ -73,15 +74,15 @@ export const handlers = {
                 try {
                     // remove user checks
                     const promises = []
-                    data.user.orders.forEach((checkId) => {
-                        promises.push(remove(checkDir, checkId))
+                    data.user.orders.forEach((orderId) => {
+                        promises.push(remove(orderDir, orderId))
                     })
 
                     // TODO: delete tokens
 
                     Promise.all(promises).then(() => callback(200, result))
                 } catch (e) {
-                    return callback(500, {Message: 'Not all checks could be deleted from user'})
+                    return callback(500, {Message: 'Not all orders could be deleted from user'})
                 }
             } else {
                 return callback(status, result)
