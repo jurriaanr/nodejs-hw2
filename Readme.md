@@ -140,7 +140,7 @@ Delete a token by id (requires valid token)
 **DELETE /token?id=aaa**
 
 
-##Menu
+## Menu
 
 Get the menu  
 **GET /menu**
