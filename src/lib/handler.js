@@ -5,7 +5,7 @@ import {
     defaultPullConverter,
     defaultPushConverter, defaultUserChecker,
 } from './util'
-import {allFieldsHaveValue, mapFields, someFieldsHaveValue} from './forms'
+import {allFieldsHaveValue, getMissingFields, mapFields, someFieldsHaveValue} from './forms'
 
 // perform authorization
 export const tokenized = (handler) => async (data, callback) => {
@@ -33,7 +33,7 @@ export const getter = (dirName, converter = defaultPullConverter, userChecker = 
 
     try {
         // check if the id exists in storage
-        if (storage.exists(dirName, id)) {
+        if (id && storage.exists(dirName, id)) {
             // get object from storage and return to callback function
             const obj = await storage.read(dirName, id, converter)
 
@@ -75,10 +75,9 @@ export const poster = (dirName, fields = [], converter = defaultPushConverter) =
                 return callback(500, {Error: 'Could not save resource'})
             }
         }
-
         return callback(400, {Error: 'Resource already exists'})
     } else {
-        return callback(400, {Error: 'Missing required fields'})
+        return callback(400, {Error: 'Missing or invalid required fields', Fields: getMissingFields(fields)})
     }
 }
 
@@ -86,7 +85,7 @@ export const poster = (dirName, fields = [], converter = defaultPushConverter) =
 export const putter = (dirName, fields = [], converter = defaultPushConverter, userChecker = defaultUserChecker) => async (data, callback) => {
     // create hash for use in storage
     const id = data.params.id
-    if (storage.exists(dirName, id)) {
+    if (id && storage.exists(dirName, id)) {
         try {
             // read in the full object
             const obj = await storage.read(dirName, id)
@@ -120,7 +119,7 @@ export const deleter = (dirName, userChecker = defaultUserChecker) => async (dat
     // check the id for validity
     const id = data.params.id
     try {
-        if (storage.exists(dirName, id)) {
+        if (id && storage.exists(dirName, id)) {
             const obj = await storage.read(dirName, id)
 
             if (!userChecker || userChecker(data.user, obj)) {

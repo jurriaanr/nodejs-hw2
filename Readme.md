@@ -1,13 +1,13 @@
 # Run project
 
-Copy config.js.dist to config.js and fill in correct settings, specifically:
+Copy src/config.js.dist to src/config.js and fill in correct settings, specifically:
 
 * the mailgun api key
-* the mailgun api base url
+* the mailgun domain (the domain added to the mailgun api url, ee sandboxXX.mailgun.org)
 * stripe apiKey
 * stripe secret
 
-Create a folder .data in the root if it does not exists and make it writable
+Create a folder .data in the root of the project if it does not exists and make it writable
 
 Go to the commandline and do
 
@@ -15,6 +15,20 @@ Go to the commandline and do
     npm start
 
 (npm is only used to transpile es6 and for nodemon)
+
+# Flow
+
+* Create a user using the user post call (use a real e-mail non microsoft address you have access to. Non microsoft because they actually block the mailgun ip address: https://stackoverflow.com/questions/50416923/hotmail-rejecting-all-emails-using-mailgun-or-sparkpost)
+* You should receive an email with a validation key
+* Validate email by call the validate post call with the validation key
+* Create a token for the user using the token post call
+* Get the menu by calling menu get
+* Create an order by calling order post
+* Update order by calling order put
+* Imagine going into a payment flow resulting in a token
+* Submit token to pay for order by calling pay post, f.e. tok_mastercard
+* You should receive an email with the order overview
+* Imagine receiving your order about 30 minutes later
 
 # API
 
@@ -232,10 +246,10 @@ Execute a payment by supplying a token, normally collected through stripe
 
 ###### Request
 
-{
-	"paymentToken": "tok_mastercard",
-	"order": "1234"
-}
+    {
+        "paymentToken": "tok_mastercard",
+        "order": "1234"
+    }
 
 ###### Response
 

@@ -54,6 +54,18 @@ export const mapFields = (fields, data) => fields.map((field) => {
 export const allFieldsHaveValue = (fields) => fields.every(field => !field.required || field.value !== NO_VALUE)
 
 /**
+ * Show what required fields are missing their value
+ * @param fields
+ * @return {*}
+ */
+export const getMissingFields = (fields) => fields.reduce((acc, field) => {
+    if(field.required && field.value === NO_VALUE){
+        acc.push(field.name)
+    }
+    return acc
+}, [])
+
+/**
  * Check if at least one of the fields has value
  * @param fields
  * @returns {boolean}

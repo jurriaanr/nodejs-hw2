@@ -9,7 +9,7 @@ import {mail, message} from '../lib/mail'
 export const directory = 'user'
 
 // simple email check
-export const emailChecker = (val) => val.match(/^\w+@\w+\.\w+$/)
+export const emailChecker = (val) => val.match(/^[^@]+\@[\w\.-]+\.[a-z]{2,}$/i)
 
 // the expected fields for post/put actions and their getter functions
 const fields = [
@@ -47,7 +47,7 @@ const pushConverter = async (fields, obj = {}, data = null) => {
             ${user.id}_${user.validationKey}
             
             Thank you for registering your account!
-            The "that pizza place" team   
+            That pizza place   
         `}
 
         // send validation mail to user
