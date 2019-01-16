@@ -1,0 +1,25 @@
+const common = {
+    httpPort: 5000,
+    httpsPort: 5001,
+    mailgun: {
+        apiKey: '',
+        apiDomain: 'sandboxXXX.mailgun.org', // the domainpart of the api url
+        from: 'you@pizzaplaze.com',
+    },
+    stripe: {
+        apiKey: '',
+        secret: '',
+    },
+}
+
+const environments = {
+    dev: {
+        ...common,
+    },
+
+    prod: {
+        ...common,
+    },
+}
+
+export const config = environments[process.env.NODE_ENV || 'dev']
