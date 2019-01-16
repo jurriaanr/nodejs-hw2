@@ -14,10 +14,7 @@ const fields = [
     {...defaultField, name: 'address', type: 'object', rule: addressValidator},
 ]
 
-// default converter when getting users from storage
-export const pullConverter = hiddenFieldConverter(['password', 'salt', 'validationCode'])
-
-// default converter when putting users in storage
+// default converter when putting orders in storage
 const pushConverter = async (fields, obj = {}, data = null) => {
     const order = defaultPushConverter(fields, obj, data)
 
@@ -33,7 +30,7 @@ const pushConverter = async (fields, obj = {}, data = null) => {
 
 // the request handler functions
 export const handlers = {
-    get: tokenized(getter(directory, pullConverter)),
+    get: tokenized(getter(directory)),
     post: tokenized(async (data, callback) => {
         poster(directory, fields, pushConverter)(data, async (status, result) => {
             if (status === 200) {
