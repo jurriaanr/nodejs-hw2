@@ -44,6 +44,23 @@ Most calls require a valid login header named token, except:
 Get an user by id (requires valid token)  
 **GET /user?id=aaa**
 
+###### Response
+
+    {
+        "id": "77c75fb64033f450d09ce95b0d1b6e3b",
+        "name": "A. Customer",
+        "address": {
+            "street": "Somestreet 1a",
+            "zip": "1111AA",
+            "city": "Amsterdam",
+            "remarks": "Ring 2nd bell"
+        },
+        "email": "jur@oberon.nl",
+        "tos": true,
+        "validated": true,
+        "orders": ["b457dac91bf00763c00a749c9b9c8823"]
+    }
+
 Create a new user  
 **POST /user**
 
@@ -178,6 +195,38 @@ Get the menu
 
 Get an order by id (requires valid token)  
 **GET /order?id=aaa**
+
+###### Response
+
+    {
+        "id": "b457dac91bf00763c00a749c9b9c8823",
+        "items": [{
+            "id": 1001,
+            "quantity": 1,
+            "choice": "Large"
+        }, {
+            "id": 1003,
+            "quantity": 1,
+            "choice": "Large"
+        }, {
+            "id": 2006,
+            "quantity": 1,
+            "choice": "Spaghetti"
+        }, {
+            "id": 9001,
+            "quantity": 1
+        }],
+        "address": {
+            "street": "Somestreet 1a",
+            "zip": "1111AA",
+            "city": "Amsterdam",
+            "remarks": "Ring 2nd bell"
+        },
+        "user": "77c75fb64033f450d09ce95b0d1b6e3b",
+        "date": 1547651372218,
+        "total": 3220,
+        "paid": false
+    }
 
 Create a new order  
 **POST /order**
