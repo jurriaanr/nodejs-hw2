@@ -20,7 +20,7 @@ Go to the commandline and do
 
 * Create a user using the user post call (use a real e-mail non microsoft address you have access to. Non microsoft because they actually block the mailgun ip address: https://stackoverflow.com/questions/50416923/hotmail-rejecting-all-emails-using-mailgun-or-sparkpost)
 * You should receive an email with a validation key
-* Validate email by call the validate post call with the validation key
+* Validate email by calling the validate post call with the validation key
 * Create a token for the user using the token post call
 * Get the menu by calling menu get
 * Create an order by calling order post
